@@ -50,8 +50,7 @@ mat-sidenav {
   height: 100%;
 }
 
-mat-label {
-}
+mat-label {}
 
 fa-icon {
   margin-right: 2vh;
@@ -94,7 +93,7 @@ fa-icon {
 }
 
 mat-sidenav {
-  background-color: rgba(17, 25, 40, 0.51);
+  background-color: rgba(32, 17, 0, 0.785);
   box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
   border-right: 1px solid rgba(255, 255, 255, 0.125);
   width: 240px !important;
@@ -103,8 +102,11 @@ mat-sidenav {
 
 .create-token-container,
 .liquidity-form-container {
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.7), /* outer white */ -10px 0 60px rgba(255, 0, 255, 0.7),
-    /* outer left magenta */ 10px 0 60px rgba(0, 255, 255, 0.7);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.7),
+    /* outer white */
+    -10px 0 60px rgba(255, 0, 255, 0.7),
+    /* outer left magenta */
+    10px 0 60px rgba(0, 255, 255, 0.7);
   /* outer right cyan */
 }
 
@@ -116,7 +118,7 @@ mat-sidenav {
 }
 
 :host ::ng-deep .mat-list-item.active .mat-list-item-content {
-  color: #ff29ff;
+  color: #FFFFFF;
   border-bottom: 1px solid white;
 }
 
@@ -126,17 +128,19 @@ mat-sidenav {
 }
 
 :host ::ng-deep .mat-list-item-content:hover {
-  color: #ff29ff;
-  background-color: #3d3378;
+  color: #FFFFFF;
+  background-color: #C76F11;
   font-weight: bold;
 }
+
 :host ::ng-deep .mat-list-item-content:active {
-  color: #ff29ff;
+  color: #FFFFFF;
   background-color: #2e2562;
   font-weight: bold;
 }
+
 :host ::ng-deep .mat-list-item-content:visited {
-  color: #ff29ff;
+  color: #FFFFFF;
   background-color: #2e2562;
   font-weight: bold;
 }
@@ -178,7 +182,7 @@ mat-sidenav {
 }
 
 .mat-card {
-  background: rgba(17, 25, 40, 0.51);
+  background: rgba(32, 17, 0, 0.785);
 }
 
 .menu-item {

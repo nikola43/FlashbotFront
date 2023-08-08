@@ -7,6 +7,7 @@ mat-sidenav {
 :host ::ng-deep input::placeholder {
   color: white !important;
 }
+
 .example-spacer {
   flex: 1 1 auto;
 }
@@ -28,25 +29,30 @@ mat-sidenav {
   padding: 0.5rem 1rem;
   color: white;
 }
+
 .connect-button:hover {
   background: linear-gradient(0deg, #723980 0%, #ae4da4 100%);
 }
+
 .mat-form-field-subscript-wrapper {
   position: unset !important;
 }
+
 :host ::ng-deep .mat-toolbar {
   height: 10vh;
   color: white;
 }
+
 :host ::ng-deep .mat-toolbar-row {
   height: 100%;
 }
 
-mat-label {
-}
+mat-label {}
+
 fa-icon {
   margin-right: 2vh;
 }
+
 ::ng-deep .mat-tab-label {
   background: #ffffff !important;
   -webkit-background-clip: text !important;
@@ -81,8 +87,9 @@ fa-icon {
   background-color: rgba(255, 255, 255, 0);
   height: 90vh;
 }
+
 mat-sidenav {
-  background-color: rgba(17, 25, 40, 0.51);
+  background-color: rgba(32, 17, 0, 0.785);
   box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
   border-right: 1px solid rgba(255, 255, 255, 0.125);
   width: 240px !important;
@@ -95,35 +102,44 @@ mat-sidenav {
   flex-direction: column;
   justify-content: space-around;
 }
+
 :host ::ng-deep .mat-list-item.active .mat-list-item-content {
-  color: #ff29ff;
+  color: #FFFFFF;
   border-bottom: 1px solid white;
 }
+
 :host ::ng-deep .mat-list-item-content {
   color: white;
   font-size: 1.2rem;
 }
+
 :host ::ng-deep .mat-list-item-content:hover {
-  color: #ff29ff;
+  color: #FFFFFF;
   background-color: #282727;
   font-weight: bold;
 }
+
 :host ::ng-deep .mat-slider-track-background {
   background-color: #ffffff66;
 }
+
 ::ng-deep .mat-form-field-label {
   /*change color of label*/
   color: white !important;
 }
+
 ::ng-deep .mat-button-wrapper {
   color: white !important;
 }
+
 ::ng-deep .mat-raised-button.mat-primary:hover {
   background-color: #35407a;
 }
+
 ::ng-deep .mat-raised-button.mat-primary:disabled:hover {
   background-color: rgba(0, 0, 0, 0.12);
 }
+
 :host ::ng-deep .soon-advise {
   margin-left: 1vh;
   font-weight: 900;
@@ -131,6 +147,7 @@ mat-sidenav {
   font-size: 0.9rem;
   margin-top: 0.5vw;
 }
+
 // :host ::ng-deep .mat-form-field-outline {
 //   border:1px solid white;
 //   border-radius: 5px;
@@ -141,40 +158,49 @@ mat-sidenav {
     .mat-tab-label {
       font-size: 0.9rem;
     }
+
     .mat-tab-header-pagination {
       background: rgb(255 255 255 / 41%);
       box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
       backdrop-filter: blur(20px);
     }
+
     .mat-toolbar-row .mat-focus-indicator {
       padding: 0 8px;
       font-size: 12px;
     }
+
     .lock-liquidity-form-container {
       min-height: 250px;
       display: flex;
       justify-content: space-between;
     }
+
     .percentButton {
       width: 20%;
     }
   }
+
   h3 {
     font-size: 1.2rem;
   }
+
   .mobile-hidden {
     display: none;
   }
+
   .typewriter {
     min-height: 250px;
   }
 }
-@media screen and (max-width: 768px) {
-}
+
+@media screen and (max-width: 768px) {}
+
 @media screen and (min-width: 769px) {
   footer {
     bottom: 0px;
   }
+
   :host ::ng-deep .mat-slider-horizontal {
     width: 80%;
     margin-left: 10%;

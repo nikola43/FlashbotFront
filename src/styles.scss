@@ -12,14 +12,14 @@ button {
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-  background: rgb(50, 24, 132);
-  background: linear-gradient(134deg, rgba(50, 24, 132, 1) 0%, rgba(0, 0, 0, 1) 100%);
+  background: #C76F11;
+  background: linear-gradient(106.56deg, #C76F11 1.62%, #000000 92.64%);
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .mat-hints {
-  color: #39c0ed;
+  color: #C76F11;
   font-size: 0.8rem;
   display: flex;
   flex-direction: row;
@@ -47,7 +47,7 @@ input {
 .liquidity-form-container {
   backdrop-filter: blur(3px) saturate(150%);
   -webkit-backdrop-filter: blur(3px) saturate(150%);
-  background-color: rgba(17, 25, 40, 0.51);
+  background-color: rgba(32, 17, 0, 0.785);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.125);
   width: 60%;
@@ -95,7 +95,7 @@ input {
 
   backdrop-filter: blur(3px) saturate(150%);
   -webkit-backdrop-filter: blur(3px) saturate(150%);
-  background-color: rgba(17, 25, 40, 0.11);
+  background-color: rgba(32, 17, 0, 0.785);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.125);
 
@@ -113,13 +113,14 @@ input {
 
   backdrop-filter: blur(3px) saturate(150%);
   -webkit-backdrop-filter: blur(3px) saturate(150%);
-  background-color: rgba(17, 25, 40, 0.11);
+  background-color: rgba(32, 17, 0, 0.785);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.125);
 
   padding: 16px;
   -moz-border-radius: 16px 16px 16px 16px;
   -webkit-border-radius: 16px 16px 16px 16px;
+
   // border: 1px solid #BEAEE2;
   .token-info {
     display: flex;
@@ -136,7 +137,7 @@ input {
 .glassContainer {
   backdrop-filter: blur(3px) saturate(150%);
   -webkit-backdrop-filter: blur(3px) saturate(150%);
-  background-color: rgba(17, 25, 40, 0.11);
+  background-color: rgba(32, 17, 0, 0.785);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.125);
 }
@@ -147,7 +148,7 @@ input {
   align-items: center;
   backdrop-filter: blur(3px) saturate(150%);
   -webkit-backdrop-filter: blur(3px) saturate(150%);
-  background-color: rgba(17, 25, 40, 0.51);
+  background-color: rgba(32, 17, 0, 0.785);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.125);
 }
@@ -158,14 +159,16 @@ input {
   align-items: start;
   backdrop-filter: blur(3px) saturate(150%);
   -webkit-backdrop-filter: blur(3px) saturate(150%);
-  background-color: rgba(17, 25, 40, 0.51);
+  background-color: rgba(32, 17, 0, 0.785);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.125);
   padding: 0px 15px;
 }
+
 .flexGrow1 {
   flex-grow: 1;
 }
+
 .full-width-field {
   width: 100%;
 }
@@ -229,7 +232,7 @@ mat-icon {
 }
 
 .mat-slider-thumb {
-  background-color: #39c0ed !important;
+  background-color: #C76F11 !important;
 }
 
 .mat-slider-thumb-label {
@@ -239,7 +242,7 @@ mat-icon {
 .mat-form-field-appearance-fill .mat-form-field-flex {
   backdrop-filter: blur(3px) saturate(150%);
   -webkit-backdrop-filter: blur(3px) saturate(150%);
-  background-color: rgba(17, 25, 40, 0.11);
+  background-color: rgba(32, 17, 0, 0.785);
   border-radius: 16px !important;
   border: 1px solid rgba(255, 255, 255, 0.125);
 }
@@ -263,7 +266,7 @@ mat-icon {
 
   backdrop-filter: blur(8px) saturate(150%);
   -webkit-backdrop-filter: blur(8px) saturate(150%);
-  background-color: rgba(17, 25, 40, 0.51);
+  background-color: rgba(32, 17, 0, 0.785);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.125);
 }
@@ -279,13 +282,16 @@ mat-icon {
 }
 
 .rainbow-shadow {
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.7), /* outer white */ -10px 0 60px rgba(255, 0, 255, 0.7),
-    /* outer left magenta */ 10px 0 60px rgba(0, 255, 255, 0.7) !important;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.7),
+    /* outer white */
+    -10px 0 60px rgba(255, 0, 255, 0.7),
+    /* outer left magenta */
+    10px 0 60px rgba(0, 255, 255, 0.7) !important;
   /* outer right cyan */
 }
 
 .multiple {
-  background: linear-gradient(-45deg, rgba(178, 62, 206, 1), rgba(255, 21, 229, 1), #47cfff, #23d5ab) !important;
+  background: #C76F11 !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   font-weight: bold;
@@ -329,14 +335,12 @@ mat-icon {
 }
 
 .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
-  background-color: #39c0ed;
+  background-color: #C76F11;
 }
 
-@media screen and (max-width: 512px) {
-}
+@media screen and (max-width: 512px) {}
 
-@media screen and (max-width: 768px) {
-}
+@media screen and (max-width: 768px) {}
 
 @media screen and (min-width: 769px) {
   body {

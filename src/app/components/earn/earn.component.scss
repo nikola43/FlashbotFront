@@ -6,14 +6,18 @@
 .earn-form-container {
   backdrop-filter: blur(3px) saturate(150%);
   -webkit-backdrop-filter: blur(3px) saturate(150%);
-  background-color: rgba(17, 25, 40, 0.51);
+  background-color: rgba(32, 17, 0, 0.785);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.125);
   width: 60%;
 
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.257), /* outer white */ -10px 0 60px rgba(255, 0, 255, 0.7),
-    /* outer left magenta */ 10px 0 60px rgba(0, 255, 255, 0.7);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.257),
+    /* outer white */
+    -10px 0 60px rgba(255, 0, 255, 0.7),
+    /* outer left magenta */
+    10px 0 60px rgba(0, 255, 255, 0.7);
 }
+
 .mat-card-title {
   color: bisque;
 }
@@ -23,7 +27,7 @@
   border-radius: 16px;
   font-size: 1.5rem;
   padding: 0.8rem;
-  background: linear-gradient(-45deg, rgba(178, 62, 206, 1), rgba(255, 21, 229, 1), #47cfff, #23d5ab) !important;
+  background: #C76F11 !important;
 }
 
 .blockInfo {
@@ -32,9 +36,10 @@
   margin-left: 20px;
   margin-bottom: 5px;
   line-height: 1.5;
+
   b,
   span {
-    color: #39c0ed;
+    color: #FFB457;
   }
 }
 
@@ -42,10 +47,13 @@
   .earn-form-container {
     width: 90%;
   }
+
   .mat-card-title {
     font-size: 22px;
   }
+
   .blockInfo {
+
     b,
     span {
       font-size: 13px;
@@ -57,10 +65,13 @@
   .earn-form-container {
     width: 100%;
   }
+
   .mat-card-title {
     font-size: 20px;
   }
+
   .blockInfo {
+
     b,
     span {
       font-size: 11px;

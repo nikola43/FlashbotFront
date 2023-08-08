@@ -21,10 +21,10 @@
     <p><b>Process completed successfully.</b></p>
     <p><b>Congratulations!</b> Your token has been verified.</p>
     <div style="height: 15px" *ngIf="data.createdToken.address.length > 0"></div>
-    <span *ngIf="data.createdToken.address.length > 0" style="color: #39c0ed; display: block"> Token created
+    <span *ngIf="data.createdToken.address.length > 0" style="color: #FFB457; display: block"> Token created
       successfully </span>
 
-    <a style="color: #39c0ed" target="_blank" [href]="data.explorerUrl + '/address/' + data.createdToken.address">
+    <a style="color: #FFB457" target="_blank" [href]="data.explorerUrl + '/address/' + data.createdToken.address">
       <b>View in the explorer <fa-icon [icon]="faexternallinkalt"></fa-icon></b></a>
     <br *ngIf="data.isVerified" />
     <!--

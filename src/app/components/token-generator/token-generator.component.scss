@@ -1,13 +1,15 @@
 ::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
-  background-color: #39c0ed;
+  background-color: #FFB457;
 }
 
 ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-  color: #39c0ed;
+  color: #FFB457;
 }
 
 // mat-icon-stepper selected color change
-::ng-deep .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+::ng-deep .mat-step-header .mat-step-icon-selected,
+.mat-step-header .mat-step-icon-state-done,
+.mat-step-header .mat-step-icon-state-edit {
   background-color: red !important;
 }
 
@@ -19,7 +21,7 @@
 
 //mat-input focused color
 ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-  color: #39c0ed !important;
+  color: #FFB457 !important;
 }
 
 // mat-input error outline color
@@ -34,7 +36,8 @@
 }
 
 // mat-input error carent color
-::ng-deep .mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element {
+::ng-deep .mat-form-field-invalid .mat-input-element,
+.mat-warn .mat-input-element {
   caret-color: white !important;
 }
 
@@ -84,7 +87,7 @@ mat-error {
 .mat-panel-title-span {
   margin: auto;
   font-size: 1.4rem;
-  color: #39c0ed;
+  color: #FFB457;
   font-weight: bold;
 }
 
@@ -141,6 +144,7 @@ mat-card {
   background: rgba(0, 0, 0, 0);
   border-radius: 16px;
 }
+
 @media screen and (max-width: 512px) {
   .typewriter {
     min-height: 250px;

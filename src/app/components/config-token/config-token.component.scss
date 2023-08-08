@@ -13,7 +13,7 @@
 
 //mat-input focused color
 ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-  color: #39c0ed !important;
+  color: #FFB457 !important;
 }
 
 // mat-input error outline color
@@ -52,12 +52,15 @@
 .config-token-container {
   backdrop-filter: blur(3px) saturate(150%);
   -webkit-backdrop-filter: blur(3px) saturate(150%);
-  background-color: rgba(17, 25, 40, 0.51);
+  background-color: rgba(32, 17, 0, 0.785);
   border-radius: 16px !important;
   border: 1px solid rgba(255, 255, 255, 0.125);
   width: 60%;
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.257), /* outer white */ -10px 0 60px rgba(255, 0, 255, 0.7),
-    /* outer left magenta */ 10px 0 60px rgba(0, 255, 255, 0.7);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.257),
+    /* outer white */
+    -10px 0 60px rgba(255, 0, 255, 0.7),
+    /* outer left magenta */
+    10px 0 60px rgba(0, 255, 255, 0.7);
 }
 
 .create-tokenButton {
@@ -65,7 +68,7 @@
   border-radius: 16px;
   font-size: 1.5rem;
   padding: 0.8rem;
-  background: linear-gradient(-45deg, rgba(178, 62, 206, 1), rgba(255, 21, 229, 1), #47cfff, #23d5ab) !important;
+  background: #C76F11 !important;
 }
 
 .enable-on-contract {
@@ -73,6 +76,7 @@
   width: 100%;
   justify-content: space-between;
   align-items: center;
+
   .trueRadio {
     margin-right: 10px;
   }
@@ -90,7 +94,7 @@ p {
   width: 100%;
 }
 
-.full-width-field > button {
+.full-width-field>button {
   margin-left: 1.2vw;
 }
 
@@ -100,34 +104,42 @@ p {
   font-size: inherit;
   vertical-align: baseline;
 }
+
 .tokenInfo {
   display: flex;
   justify-content: center;
 }
+
 .customForm {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
 }
+
 @media screen and (max-width: 1024px) {
   .config-token-container {
     width: 80%;
   }
+
   .mat-raised-button {
     min-height: 37px !important;
     min-width: 70px !important;
   }
+
   .mat-form-field-subscript-wrapper {
     position: unset !important;
   }
+
   .mat-form-field-wrapper {
     padding-bottom: 0 !important;
   }
 }
+
 @media screen and (max-width: 768px) {
   .config-token-container {
     width: 90%;
   }
+
   .mat-raised-button {
     min-width: 70px;
   }
@@ -137,6 +149,7 @@ p {
   .config-token-container {
     width: 100%;
   }
+
   .mat-raised-button {
     min-width: 70px;
   }

@@ -19,7 +19,7 @@
 
 //mat-input focused color
 ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-  color: #39c0ed !important;
+  color: #FFB457 !important;
 }
 
 // mat-input error outline color
@@ -59,13 +59,16 @@
 .create-token-container {
   backdrop-filter: blur(3px) saturate(150%);
   -webkit-backdrop-filter: blur(3px) saturate(150%);
-  background-color: rgba(17, 25, 40, 0.51);
+  background-color: rgba(32, 17, 0, 0.785);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.125);
   width: 60%;
 
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.257), /* outer white */ -10px 0 60px rgba(255, 0, 255, 0.7),
-    /* outer left magenta */ 10px 0 60px rgba(0, 255, 255, 0.7);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.257),
+    /* outer white */
+    -10px 0 60px rgba(255, 0, 255, 0.7),
+    /* outer left magenta */
+    10px 0 60px rgba(0, 255, 255, 0.7);
   /* outer right cyan */
 }
 
@@ -74,13 +77,15 @@
   border-radius: 16px;
   font-size: 1.5rem;
   padding: 0.8rem !important;
-  background: linear-gradient(-45deg, rgba(178, 62, 206, 1), rgba(255, 21, 229, 1), #47cfff, #23d5ab) !important;
+  background: #C76F11 !important;
 }
+
 @media screen and (max-width: 1024px) {
   .create-token-container {
     width: 80%;
   }
 }
+
 @media screen and (max-width: 768px) {
   .create-token-container {
     width: 90%;
