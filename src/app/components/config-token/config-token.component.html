@@ -1,0 +1,525 @@
+<div style="height: 15px"></div>
+<div style="text-align: center;" class="mx-auto">
+  <h4 style="color: white;">Configure tokenomics and much more!</h4>
+</div>
+<div style="height: 30px"></div>
+<mat-card class="config-token-container rainbow-shadow mx-auto">
+  <form [formGroup]="formGroup" class="form-container">
+    <h2>Insert the token address to configure</h2>
+    <mat-form-field appearance="outline" class="flexGrow1">
+      <mat-label>Token Address </mat-label>
+      <input #tokenAddress matInput maxlength="42" placeholder="e.g. My Token" formControlName="tokenAddress"
+        (keyup)="getTokenInfo($event, 42, 'tokenAddress')">
+      <mat-hint class="mat-hints">
+        <mat-icon>info</mat-icon>
+        Address of your token to configure.
+      </mat-hint>
+      <mat-error *ngIf="!formGroup.controls['tokenAddress'].valid && formGroup.controls['tokenAddress'].touched">
+        Token Address is required
+      </mat-error>
+    </mat-form-field>
+    <div style="height: 15px"></div>
+    <div class="configContainer">
+      <div style="height: 15px"></div>
+      <span class="mx-auto" style="color: white">Token Info</span>
+      <div class="full-width-field tokenInfo">
+        <span *ngIf="isLoading && tokenInfo.name == ''" class="spinner-border spinner-border-sm mr-1"></span>
+        <ng-container *ngIf="tokenInfo.name != ''">
+          <div style="height: 15px"></div>
+          <span class="mx-auto" style="color: white">Name: {{tokenInfo.name}}</span>
+          <span class="mx-auto" style="color: white">Symbol: {{tokenInfo.symbol}}</span>
+          <span class="mx-auto" style="color: white">Supply: {{tokenInfo.supply}}</span>
+        </ng-container>
+
+      </div>
+      <div style="height: 15px"></div>
+    </div>
+    <div style="height: 15px"></div>
+
+    <mat-slide-toggle (change)="onSwitchChangeShowCustomGeneralSettings()">
+      <span class="mx-auto" style="color: white">General Config</span>
+    </mat-slide-toggle>
+    <div style="height: 15px"></div>
+    <div class="configContainer" *ngIf="showCustomGeneralSettings">
+      <div style="height: 15px"></div>
+      <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1 mr1">
+          <mat-label>Exclude Address from fees </mat-label>
+          <input matInput maxlength="42" placeholder="e.g. 0x43f...63tr" formControlName="excludeFromFeeAddress"
+            (keyup)="numberFieldKeyup($event, 42, 'excludeFromFeeAddress')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            The wallet address to be excluded from fees (note that you can re-include a wallet in fees by setting its
+            value to false).
+          </mat-hint>
+        </mat-form-field>
+        <mat-radio-group [(ngModel)]="formGroup.controls.excludeFromFeeBool" aria-label="Select an option"
+          formControlName="excludeFromFeeBool">
+          <mat-radio-button value="1" class="trueRadio">True</mat-radio-button>
+          <mat-radio-button value="0">False</mat-radio-button>
+        </mat-radio-group>
+
+        <button
+          [disabled]="isLoadingExcludeFromFees || !validTokenAddress || !formGroup.controls['excludeFromFeeAddress'].valid"
+          (click)="onClickExcludeFromFees()" color="primary" type="button" mat-raised-button>
+          <span *ngIf="isLoadingExcludeFromFees" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div>
+      <div style="height: 15px"></div>
+      <div style="height: 15px"></div>
+
+      <div style="height: 15px"></div>
+      <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1">
+          <mat-label>Swap threshold </mat-label>
+          <input matInput maxlength="18" placeholder="e.g. 1000" formControlName="swapThreshold"
+            (keyup)="numberFieldKeyup($event, 18, 'swapThreshold')"
+            (keydown)="numberFieldKeydown($event, 18, 'swapThreshold')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            Enter Swap threshold, the minimun amount of tokens to swap to do autoliquidity and other stuff.
+          </mat-hint>
+        </mat-form-field>
+        <button (click)="onClickSwapThreshold" color="primary"
+          type="button" mat-raised-button>
+          <span *ngIf="isBuyBackTresLoading" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div>
+      <div style="height: 15px"></div>
+      <div style="height: 15px"></div>
+
+    </div>
+    <!-- <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1">
+          <mat-label>USD Address </mat-label>
+          <input matInput maxlength="42" placeholder="e.g. 0x43f...63tr" formControlName="busdAddress"
+            (keyup)="numberFieldKeyup($event, 42, 'busdAddress')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            The address of stable coin to control token price
+          </mat-hint>
+        </mat-form-field>
+        <button [disabled]="isLoadingBusdAddress || !validTokenAddress || !formGroup.controls['busdAddress'].valid"
+          (click)="onClickUpdateBusdAddress()" color="primary" type="button" mat-raised-button>
+          <span *ngIf="isLoadingBusdAddress" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div> -->
+
+    <!-- <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1">
+          <mat-label>Router Address </mat-label>
+          <input matInput maxlength="42" placeholder="e.g. 0x43f...63tr" formControlName="routeAddress"
+            (keyup)="numberFieldKeyup($event, 42, 'routeAddress')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            The new router address to be use by the token
+          </mat-hint>
+        </mat-form-field>
+        <button [disabled]="isLoadingSetRouter || !validTokenAddress || !formGroup.controls['routeAddress'].valid"
+          (click)="OnClickSetRouterAddress()" color="primary" type="button" mat-raised-button>
+          <span *ngIf="isLoadingSetRouter" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div> -->
+
+    <!-- <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1">
+          <mat-label>Liquidity Address </mat-label>
+          <input matInput maxlength="42" placeholder="e.g. 0x43f...63tr" formControlName="liquidityAddress"
+            (keyup)="numberFieldKeyup($event, 42, 'liquidityAddress')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            The new liquidity address to be use by the token
+          </mat-hint>
+        </mat-form-field>
+        <button
+          [disabled]="isLoadingLiquidityAddress || !validTokenAddress || !formGroup.controls['liquidityAddress'].valid"
+          (click)="OnClickSetLiquidityAddress()" color="primary" type="button" mat-raised-button>
+          <span *ngIf="isLoadingLiquidityAddress" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div> -->
+
+    <!-- <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1">
+          <mat-label>New Pair Address </mat-label>
+          <input matInput maxlength="42" placeholder="e.g. 0x43f...63tr" formControlName="pairAddress"
+            (keyup)="numberFieldKeyup($event, 42, 'pairAddress')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            The new pair address
+          </mat-hint>
+        </mat-form-field>
+        <button [disabled]="isLoadingSetPair || !validTokenAddress || !formGroup.controls['pairAddress'].valid"
+          (click)="OnClickSetPairAddress()" color="primary" type="button" mat-raised-button>
+          <span *ngIf="isLoadingSetPair" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div>
+      <div style="height: 15px"></div>
+    </div> -->
+    <div style="height: 15px"></div>
+
+    <mat-slide-toggle (change)="onSwitchChangeShowCustomBuySellTransferSettings()">
+      <span class="mx-auto" style="color: white">Custom taxes config</span>
+    </mat-slide-toggle>
+    <div style="height: 15px"></div>
+    <div class="configContainer" *ngIf="showCustomBuySellTransferSettings">
+      <div style="height: 15px"></div>
+      <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="full-width-field">
+          <mat-label>Buy Fee <span style="color: #ff3030">*</span></mat-label>
+          <input matInput maxlength="3" placeholder="e.g. 1" formControlName="buyFee"
+            (keyup)="numberFieldKeyup($event, 3, 'buyFee')" (keydown)="numberFieldKeydown($event, 200, 'buyFee')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            The percent of each buy to be taxed (1->0.01% / 10->0.1% / 100->1%) - {{valuesPercent.buyFee}} %
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="full-width-field">
+          <mat-label>Sell Fee <span style="color: #ff3030">*</span></mat-label>
+          <input matInput maxlength="3" placeholder="e.g. 1" formControlName="sellFee"
+            (keyup)="numberFieldKeyup($event, 3, 'sellFee')" (keydown)="numberFieldKeydown($event, 200, 'sellFee')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            The percent of each sell to be taxed (1->0.01% / 10->0.1% / 100->1%) - {{valuesPercent.sellFee}} %
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1" class="full-width-field">
+          <mat-label>Transfer Fee <span style="color: #ff3030">*</span></mat-label>
+          <input matInput maxlength="4" placeholder="e.g. 1" formControlName="transferFee"
+            (keyup)="numberFieldKeyup($event, 3, 'transferFee')"
+            (keydown)="numberFieldKeydown($event, 3, 'transferFee')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            The percent of each transfer to be taxed (1->0.01% / 10->0.1% / 100->1%) - {{valuesPercent.transferFee}} %
+          </mat-hint>
+        </mat-form-field>
+        <button [disabled]="isTaxesPercentLoading || !validTokenAddress" (click)="onClickEnableCustomSetTaxes()"
+          color="primary" type="button" mat-raised-button>
+          <span *ngIf="isTaxesPercentLoading" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div>
+      <div style="height: 15px"></div>
+      <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1" class="full-width-field">
+          <mat-label>AutoLiquidity Fee <span style="color: #ff3030">*</span></mat-label>
+          <input matInput maxlength="2" placeholder="e.g. 1" formControlName="TxFeePercentToLP"
+            (keyup)="numberFieldKeyup($event, 2, 'TxFeePercentToLP')"
+            (keydown)="numberFieldKeydown($event, 2, 'TxFeePercentToLP')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            The percent of the fees for Auto Liquidity - {{valuesPercent.TxFeePercentToLP}} %
+          </mat-hint>
+        </mat-form-field>
+        <button [disabled]="isAutoLiquidityLoading || !validTokenAddress || !formGroup.controls['TxFeePercentToLP'].valid" (click)="onClickAutoLiquidity()"
+          color="primary" type="button" mat-raised-button>
+          <span *ngIf="isAutoLiquidityLoading" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div>
+      <div style="height: 15px"></div>
+      <div style="height: 15px"></div>
+
+    </div>
+    <div style="height: 15px"></div>
+
+    <mat-slide-toggle (change)="onSwitchChangeGasPriceLimitSettings()">
+      <span class="mx-auto" style="color: white">Anti-Bot config</span>
+    </mat-slide-toggle>
+    <div style="height: 15px"></div>
+    <div class="configContainer" *ngIf="showCustomGasPriceLimitSettings">
+      <div style="height: 15px"></div>
+      <p>Anti-Bot Gas Price Limit</p>
+      <div class="enable-on-contract">
+        <mat-radio-group [(ngModel)]="formGroup.controls.gasLimitActive" aria-label="Select an option"
+          formControlName="gasLimitActive">
+          <mat-radio-button value="1" class="trueRadio">True</mat-radio-button>
+          <mat-radio-button value="0">False</mat-radio-button>
+        </mat-radio-group>
+        <button [disabled]="isLoadingGas || !validTokenAddress" (click)="onClickEnableCustomGasPrice()" color="primary"
+          type="button" mat-raised-button>
+          <span *ngIf="isLoadingGas" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div>
+      <mat-hint class="mat-hints">
+        <mat-icon class="max-price-icon">info</mat-icon>
+        Enable the gas price limit control in each transaction to be able to set a max gas price limit.
+      </mat-hint>
+      <div style="height: 15px"></div>
+      <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1">
+          <mat-label>Max Gas Price Limit </mat-label>
+          <input matInput maxlength="18" placeholder="e.g. 1500000" formControlName="maxGasPriceLimit"
+            (keyup)="numberFieldKeyup($event, 18, 'maxGasPriceLimit')"
+            (keydown)="numberFieldKeydown($event, 18, 'maxGasPriceLimit')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            Enter max gas price setted to make transactions to avoid front-running (Min value 10000000000 = 10 gWei).
+          </mat-hint>
+        </mat-form-field>
+        <button [disabled]="isGasPriceLoading || !validTokenAddress || !formGroup.controls['maxGasPriceLimit'].valid" (click)="onClickGasPrice()" color="primary"
+          type="button" mat-raised-button>
+          <span *ngIf="isGasPriceLoading" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div>
+      <div style="height: 15px"></div>
+      <div style="height: 15px"></div>
+      <p>Anti-Bot Delay Tx</p>
+      <div class="enable-on-contract">
+        <mat-radio-group [(ngModel)]="formGroup.controls.transferDelayEnabled" aria-label="Select an option"
+          formControlName="transferDelayEnabled">
+          <mat-radio-button value="1" class="trueRadio">True</mat-radio-button>
+          <mat-radio-button value="0">False</mat-radio-button>
+        </mat-radio-group>
+        <button [disabled]="isLoadingDelay || !validTokenAddress" (click)="onClickEnableCustomAntiBotDelay()"
+          color="primary" type="button" mat-raised-button>
+          <span *ngIf="isLoadingDelay" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div>
+      <mat-hint class="mat-hints">
+        <mat-icon class="max-price-icon">info</mat-icon>
+        Enable the time delay between each transaction to be able to set a time delay.
+      </mat-hint>
+      <div style="height: 15px"></div>
+      <!-- <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1">
+          <mat-label>Anti-Bot Delay Between Tx </mat-label>
+          <input matInput maxlength="3" placeholder="e.g. 3" formControlName="timeDelayBetweenTx"
+            (keyup)="numberFieldKeyup($event, 3, 'timeDelayBetweenTx')"
+            (keydown)="numberFieldKeydown($event, 3, 'timeDelayBetweenTx')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            Enter delay time in seconds between transactions with same wallet, this time depends on the network
+          </mat-hint>
+        </mat-form-field>
+        <button [disabled]="isDelayTxLoading || !validTokenAddress" (click)="onClickDelayTx()" color="primary"
+          type="button" mat-raised-button>
+          <span *ngIf="isDelayTxLoading" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div>
+      <div style="height: 15px"></div> -->
+
+      <!-- <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1">
+          <mat-label>Initial Delay After Trading Active </mat-label>
+          <input matInput maxlength="4" placeholder="e.g. 3600" formControlName="totalDelayTime"
+            (keyup)="numberFieldKeyup($event, 4, 'totalDelayTime')"
+            (keydown)="numberFieldKeydown($event, 4, 'totalDelayTime')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            Enter delay time in seconds to wait after addLiquidity event, set 0 to disable
+          </mat-hint>
+        </mat-form-field>
+        <button [disabled]="isDelayLaunchLoading || !validTokenAddress" (click)="onClickDelayLaunch()" color="primary"
+          type="button" mat-raised-button>
+          <span *ngIf="isDelayLaunchLoading" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div> -->
+
+
+    </div>
+    <div style="height: 15px"></div>
+
+    <mat-slide-toggle (change)="onSwitchChangeBuybackSettings()">
+      <span class="mx-auto" style="color: white">Buyback config</span>
+    </mat-slide-toggle>
+    <div style="height: 15px"></div>
+    <div class="configContainer" *ngIf="showCustomBuybackSettings">
+      <div style="height: 15px"></div>
+      <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1">
+          <mat-label>Buyback threshold </mat-label>
+          <input matInput maxlength="18" placeholder="e.g. 1000" formControlName="buybackThreshold"
+            (keyup)="numberFieldKeyup($event, 18, 'buybackThreshold')"
+            (keydown)="numberFieldKeydown($event, 18, 'buybackThreshold')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            Enter Buyback threshold, the minimun amount of tokens to buyback.
+          </mat-hint>
+        </mat-form-field>
+        <button [disabled]="isBuyBackTresLoading || !validTokenAddress || !formGroup.controls['buybackThreshold'].valid" (click)="onClickBuybackThreshold"
+          color="primary" type="button" mat-raised-button>
+          <span *ngIf="isBuyBackTresLoading" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div>
+      <div style="height: 15px"></div>
+      <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1">
+          <mat-label>Buyback percent </mat-label>
+          <input matInput maxlength="3" placeholder="e.g. 1000" formControlName="TxFeePercentToBuybackTokens"
+            (keyup)="numberFieldKeyup($event, 3, 'TxFeePercentToBuybackTokens')"
+            (keydown)="numberFieldKeydown($event, 3, 'TxFeePercentToBuybackTokens')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            Enter the percentage of buyback to be applied to the total fees, remember that the fees are split between
+            buyback, autoliquidity and the marketing wallet.
+          </mat-hint>
+        </mat-form-field>
+        <button [disabled]="isBuyBackThresLoading || !validTokenAddress || !formGroup.controls['TxFeePercentToBuybackTokens'].valid" (click)="onClickBuyBackFees" color="primary"
+          type="button" mat-raised-button>
+          <span *ngIf="isBuyBackThresLoading" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div>
+      <div style="height: 15px"></div>
+      <div style="height: 15px"></div>
+      <div style="height: 15px"></div>
+    </div>
+
+    <div style="height: 15px"></div>
+
+    <mat-slide-toggle (change)="onSwitchChangeWhaleTaxes()">
+      <span class="mx-auto" style="color: white">Anti-Whale taxes</span>
+    </mat-slide-toggle>
+    <div style="height: 15px"></div>
+    <div class="configContainer" *ngIf="showCustomWhaleFeeSettings">
+
+      <div style="height: 15px"></div>
+      <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1">
+          <mat-label>Max Buy / Sell Limit</mat-label>
+          <input matInput maxlength="18" placeholder="e.g. 0.1" formControlName="maxBuyLimit"
+            (keyup)="numberFieldKeyup($event, 18, 'maxBuyLimit')"
+            (keydown)="numberFieldKeydown($event, 18, 'maxBuyLimit')">
+          <mat-error *ngIf="!formGroup.controls['maxBuyLimit'].valid && formGroup.controls['maxBuyLimit'].touched">
+            This field required
+          </mat-error>
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            Enter the maximum number of tokens that can be purchased or selled at one time.
+          </mat-hint>
+        </mat-form-field>
+        <button [disabled]="isLoadingMaxBuy || !validTokenAddress || !formGroup.controls['maxBuyLimit'].valid" (click)="onClickMaxBuyLimit" color="primary"
+          type="button" mat-raised-button>
+          <span *ngIf="isLoadingMaxBuy" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div>
+      <div style="height: 15px"></div>
+      <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1">
+          <mat-label>Max Token Amount in Wallet</mat-label>
+          <input matInput maxlength="18" placeholder="e.g. 0.1" formControlName="MaxWalletAmount"
+            (keyup)="numberFieldKeyup($event, 18, 'MaxWalletAmount')"
+            (keydown)="numberFieldKeydown($event, 18, 'MaxWalletAmount')">
+          <mat-error
+            *ngIf="!formGroup.controls['MaxWalletAmount'].valid && formGroup.controls['MaxWalletAmount'].touched">
+            This field required
+          </mat-error>
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            Enter the maximum number of tokens that a wallet can hold.
+          </mat-hint>
+        </mat-form-field>
+        <button [disabled]="isMaxWalletLoading || !validTokenAddress || !formGroup.controls['MaxWalletAmount'].valid" (click)="onClickMaxWallet" color="primary"
+          type="button" mat-raised-button>
+          <span *ngIf="isMaxWalletLoading" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div>
+      <div style="height: 15px"></div>
+    </div>
+    <div style="height: 15px"></div>
+
+    <mat-slide-toggle (change)="onSwitchChangeShowCustomOwnerSettings()">
+      <span class="mx-auto" style="color: white"> Ownership config</span>
+    </mat-slide-toggle>
+    <div style="height: 15px"></div>
+    <div class="configContainer" *ngIf="showCustomOwnerSettings">
+      <div style="height: 15px"></div>
+      <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1">
+          <mat-label>Marketing Fee </mat-label>
+          <input matInput maxlength="2" placeholder="e.g. 10%" formControlName="TxFeePercentToWallet"
+            (keyup)="numberFieldKeyup($event, 2, 'TxFeePercentToWallet')"
+            (keydown)="numberFieldKeydown($event, 2, 'TxFeePercentToWallet')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            Enter the percentage for the marketing wallet to be applied to the total fees, remember that the fees are
+            split between buyback, autoliquidity and the marketing wallet. </mat-hint>
+        </mat-form-field>
+        <button [disabled]="isLoadingTxFeePercentToWallet || !validTokenAddress || !formGroup.controls['TxFeePercentToWallet'].valid"
+          (click)="onClickTxFeePercentToWallets()" color="primary" type="button" mat-raised-button>
+          <span *ngIf="isLoadingTxFeePercentToWallet" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div>
+      <div style="height: 15px"></div>
+      <div style="height: 15px"></div>
+      <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1">
+          <mat-label>Makerting Wallet </mat-label>
+          <input matInput maxlength="42" placeholder="e.g. 0x43f...63tr" formControlName="FeeReceiverWallet"
+            (keyup)="numberFieldKeyup($event, 42, 'FeeReceiverWallet')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            Changes the marketing wallet, this wallet will receive the marketing fees if they are activated.
+          </mat-hint>
+        </mat-form-field>
+        <button
+          [disabled]="isLoadingNewMarketing || !validTokenAddress || !formGroup.controls['FeeReceiverWallet'].valid"
+          (click)="OnClickNewMarketing()" color="primary" type="button" mat-raised-button>
+          <ng-container *ngIf="isLoadingNewMarketing">
+            <span class="spinner-border spinner-border-sm mr-1"></span>
+          </ng-container>
+          Apply
+        </button>
+      </div>
+      <div style="height: 15px"></div>
+      <div class="full-width-field customForm">
+        <mat-form-field appearance="outline" class="flexGrow1">
+          <mat-label>Transfer Ownership </mat-label>
+          <input matInput maxlength="42" placeholder="e.g. 0x43f...63tr" formControlName="newOwner"
+            (keyup)="numberFieldKeyup($event, 42, 'newOwner')">
+          <mat-hint class="mat-hints">
+            <mat-icon>info</mat-icon>
+            Transfer the ownership of the token to a new owner (be CAREFUL with this action because it is
+            IRREVERSIBLE)
+          </mat-hint>
+        </mat-form-field>
+        <button [disabled]="isLoadingNewOwner || !validTokenAddress || !formGroup.controls['newOwner'].valid"
+          (click)="OnClickNewOwner()" color="primary" type="button" mat-raised-button>
+          <span *ngIf="isLoadingNewOwner" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div>
+      <div style="height: 15px"></div>
+
+      <div class="enable-on-contract">
+        <p>Renunce Ownership </p>
+        <button [disabled]="isLoadingNoOwner || !validTokenAddress"
+          (click)="OnClickNoOwner()" color="primary" type="button" mat-raised-button>
+          <span *ngIf="isLoadingNoOwner" class="spinner-border spinner-border-sm mr-1"></span>
+          Apply
+        </button>
+      </div>
+      <mat-hint class="mat-hints">
+        <mat-icon>info</mat-icon>
+        Renunce the ownership of the token to a non owner (address 0) (be CAREFUL with this action because it is
+        IRREVERSIBLE).
+      </mat-hint>
+
+      <div style="height: 15px"></div>
+      <div style="height: 15px"></div>
+    </div>
+    <div style="height: 15px"></div>
+
+  </form>
+  <div style="height: 15px"></div>
+
+</mat-card>

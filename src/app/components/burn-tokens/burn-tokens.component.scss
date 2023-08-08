@@ -1,0 +1,29 @@
+:host ::ng-deep .mat-form-field-outline:not(:invalid) {
+  color: white;
+}
+
+.liquidity-form-container {
+  backdrop-filter: blur(3px) saturate(150%);
+  -webkit-backdrop-filter: blur(3px) saturate(150%);
+  background-color: rgba(17, 25, 40, 0.51);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  width: 60%;
+}
+
+@media screen and (max-width: 1024px) {
+  .liquidity-form-container {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .liquidity-form-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .liquidity-form-container {
+    width: 100%;
+  }
+}
